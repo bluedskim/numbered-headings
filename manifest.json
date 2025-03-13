@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Numbered Headings",
+    "version": "1.0",
+    "description": "Adds hierarchical numbering to heading tags on webpages.",
+    "permissions": ["activeTab"],
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ]
+  }
