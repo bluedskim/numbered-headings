@@ -3,7 +3,7 @@
     "name": "Numbered Headings",
     "version": "1.2",
     "description": "Adds hierarchical numbering to heading tags on webpages.",
-    "permissions": ["activeTab", "storage"],
+    "permissions": ["activeTab", "storage", "scripting"],
     "background": {
       "service_worker": "background.js"
     },
