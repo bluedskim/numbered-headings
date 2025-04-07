@@ -1,5 +1,8 @@
 {
     "manifest_version": 3,
+    "host_permissions": [
+      "http://127.0.0.1:3000/*"
+    ],    
     "name": "Numbered Headings",
     "version": "1.2",
     "description": "Adds hierarchical numbering to heading tags on webpages.",
