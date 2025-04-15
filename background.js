@@ -1,7 +1,7 @@
 // Run when the extension is first installed or updated
 chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.local.set({ enabled: false });
-    chrome.action.setBadgeText({ text: "OFF" });
+    chrome.action.setBadgeText({ text: "" });
     console.log("Extension installed or updated.");
 });
 
@@ -22,7 +22,7 @@ async function initializeExtension() {
 
     // Update the badge text
     chrome.action.setBadgeText({
-        text: enabled ? "ON" : "OFF"
+        text: enabled ? "ON" : ""
     });
 
     // Inject script into active tab if enabled
@@ -45,7 +45,7 @@ chrome.action.onClicked.addListener(async (tab) => {
     await chrome.storage.local.set({ enabled });
 
     chrome.action.setBadgeText({
-        text: enabled ? "ON" : "OFF"
+        text: enabled ? "ON" : ""
     });
 
     chrome.scripting.executeScript({
@@ -61,7 +61,7 @@ chrome.action.onClicked.addListener(async (tab) => {
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     let { enabled } = await chrome.storage.local.get("enabled");
     console.log(`onUpdated enabled is ${enabled}`);
-    
+
     if (enabled === undefined) {
         enabled = false; // Default to false if not set
         await chrome.storage.local.set({ enabled });
@@ -69,7 +69,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     console.log(`onUpdated Feature is now ${enabled ? "enabled" : "disabled"}`);
 
     chrome.action.setBadgeText({
-        text: enabled ? "ON" : "OFF"
+        text: enabled ? "ON" : ""
     });
 
     chrome.scripting.executeScript({
