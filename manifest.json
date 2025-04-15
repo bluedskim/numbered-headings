@@ -10,9 +10,9 @@
     },
     "action": {
       "default_icon": {
-        "16": "icon-off.png",
-        "48": "icon-off.png",
-        "128": "icon-off.png"
+        "16": "typo--h1-16x16.png",
+        "48": "typo--h1-48x48.png",
+        "128": "typo--h1-128x128.png"
       },
       "default_title": "Toggle Heading Numbers"
     },
