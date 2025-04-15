@@ -1,0 +1,1 @@
+convert +append before.png after.png beforeAndAfter.png

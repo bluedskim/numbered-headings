@@ -1,0 +1,2 @@
+ffmpeg -framerate 0.5 -i numberd-heading_screenshot%1d.png  -vcodec mpeg4 numberd-heading_screenshot.avi
+ffmpeg -i "concat:numberd-heading_screenshot.avi|numberd-heading_screenshot.avi|numberd-heading_screenshot.avi" -c copy output.avi
