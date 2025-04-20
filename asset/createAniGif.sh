@@ -1,0 +1,1 @@
+convert -delay 150 -loop 0 numberd-heading_screenshot*.png beforeAndAfter_any.gif
