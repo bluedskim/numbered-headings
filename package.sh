@@ -1,1 +1,1 @@
-zip package.zip background.js manifest.json typo--h1-16x16.png typo--h1-48x48.png typo--h1-128x128.png
+zip numbered-headngs-v1.0.zip background.js manifest.json typo--h1-16x16.png typo--h1-48x48.png typo--h1-128x128.png
