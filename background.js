@@ -48,11 +48,27 @@ chrome.action.onClicked.addListener(async (tab) => {
         text: enabled ? "ON" : ""
     });
 
-    chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        function: toggleFeature,
-        args: [enabled]
-    });
+    // chrome.scripting.executeScript({
+    //     target: { tabId: tab.id },
+    //     function: toggleFeature,
+    //     args: [enabled]
+    // });
+    // chrome.scripting.executeScript({
+    //     target: { tabId: tab.id },
+    //     func: () => {
+    //         toggleFeature(enabled)
+    //       }
+    // });    
+    chrome.tabs.sendMessage(
+        tab.id, 
+        {
+            action: "toggleFeature",
+            enabled: enabled 
+        }
+    );
+    // chrome.tabs.sendMessage(tab.id, {action: "toggleFeature"}, (response) => {
+    //     console.log("Response:", response.status);
+    //   });    
 });
 
 /**
@@ -78,29 +94,3 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         args: [enabled]
     });
 });
-
-// Function injected into the webpage
-function toggleFeature(enabled) {
-    console.log(`Feature is now ${enabled ? "enabled" : "disabled"}`);
-    if (enabled) {
-        const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-        let levels = [0, 0, 0, 0, 0, 0];
-
-        headings.forEach(heading => {
-            let level = parseInt(heading.tagName.charAt(1)) - 1; // Determine heading level
-            levels[level]++; // Increment level count
-            for (let i = level + 1; i < levels.length; i++) {
-                levels[i] = 0; // Reset lower levels
-            }
-            let number = levels.slice(0, level + 1).filter(n => n > 0).join("."); // Create numbering
-            heading.dataset.originalText = heading.dataset.originalText || heading.textContent; // Store original text
-            heading.textContent = `${number}. ${heading.dataset.originalText}`; // Prepend numbering
-        });
-    } else {
-        document.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(heading => {
-            if (heading.dataset.originalText) {
-                heading.textContent = heading.dataset.originalText;
-            }
-        });
-    }
-}
