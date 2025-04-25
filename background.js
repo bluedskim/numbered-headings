@@ -88,9 +88,11 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         text: enabled ? "ON" : ""
     });
 
-    chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        function: toggleFeature,
-        args: [enabled]
-    });
+    chrome.tabs.sendMessage(
+        tab.id, 
+        {
+            action: "toggleFeature",
+            enabled: enabled 
+        }
+    );
 });
