@@ -1,6 +1,6 @@
 // Function injected into the webpage
 function toggleFeature(enabled) {
-    console.log(`Feature is now... ${enabled ? "enabled" : "disabled"}`);
+    // console.log(`Feature is now... ${enabled ? "enabled" : "disabled"}`);
     if (enabled) {
         const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
         let levels = [0, 0, 0, 0, 0, 0];
@@ -24,8 +24,8 @@ function toggleFeature(enabled) {
     }
 }
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action === "toggleFeature") {
         toggleFeature(request.enabled);
     }
-  });
+});
