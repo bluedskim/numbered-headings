@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Numbered Headings",
-    "version": "1.2",
+    "version": "1.2.1",
     "description": "Adds hierarchical numbering to heading tags on webpages.",
     "host_permissions": [ "<all_urls>"],    
     "permissions": ["storage", "scripting"],
