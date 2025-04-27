@@ -28,11 +28,13 @@ async function initializeExtension() {
     // Inject script into active tab if enabled
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (tab && enabled) {
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            function: toggleFeature,
-            args: [enabled]
-        });
+        chrome.tabs.sendMessage(
+            tab.id,
+            {
+                action: "toggleFeature",
+                enabled: enabled
+            }
+        );
     }
 }
 
@@ -48,27 +50,13 @@ chrome.action.onClicked.addListener(async (tab) => {
         text: enabled ? "ON" : ""
     });
 
-    // chrome.scripting.executeScript({
-    //     target: { tabId: tab.id },
-    //     function: toggleFeature,
-    //     args: [enabled]
-    // });
-    // chrome.scripting.executeScript({
-    //     target: { tabId: tab.id },
-    //     func: () => {
-    //         toggleFeature(enabled)
-    //       }
-    // });    
     chrome.tabs.sendMessage(
-        tab.id, 
+        tab.id,
         {
             action: "toggleFeature",
-            enabled: enabled 
+            enabled: enabled
         }
     );
-    // chrome.tabs.sendMessage(tab.id, {action: "toggleFeature"}, (response) => {
-    //     console.log("Response:", response.status);
-    //   });    
 });
 
 /**
@@ -89,10 +77,10 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     });
 
     chrome.tabs.sendMessage(
-        tab.id, 
+        tab.id,
         {
             action: "toggleFeature",
-            enabled: enabled 
+            enabled: enabled
         }
     );
 });
