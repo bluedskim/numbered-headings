@@ -63,24 +63,27 @@ chrome.action.onClicked.addListener(async (tab) => {
  * 화면 리로드
  */
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-    let { enabled } = await chrome.storage.local.get("enabled");
-    console.log(`onUpdated enabled is ${enabled}`);
+    //prevent : Uncaught (in promise) Error: Could not establish connection. Receiving end does not exist
+    if (changeInfo.status === 'complete') {
+        let { enabled } = await chrome.storage.local.get("enabled");
+        console.log(`onUpdated enabled is ${enabled}`);
 
-    if (enabled === undefined) {
-        enabled = false; // Default to false if not set
-        await chrome.storage.local.set({ enabled });
-    }
-    console.log(`onUpdated Feature is now ${enabled ? "enabled" : "disabled"}`);
-
-    chrome.action.setBadgeText({
-        text: enabled ? "ON" : ""
-    });
-
-    chrome.tabs.sendMessage(
-        tab.id,
-        {
-            action: "toggleFeature",
-            enabled: enabled
+        if (enabled === undefined) {
+            enabled = false; // Default to false if not set
+            await chrome.storage.local.set({ enabled });
         }
-    );
+        console.log(`onUpdated Feature is now ${enabled ? "enabled" : "disabled"}`);
+
+        chrome.action.setBadgeText({
+            text: enabled ? "ON" : ""
+        });
+
+        chrome.tabs.sendMessage(
+            tab.id,
+            {
+                action: "toggleFeature",
+                enabled: enabled
+            }
+        );
+    }
 });
