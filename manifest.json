@@ -4,7 +4,7 @@
     "version": "1.2.1",
     "description": "Adds hierarchical numbering to heading tags on webpages.",
     "host_permissions": [ "<all_urls>"],    
-    "permissions": ["storage", "scripting"],
+    "permissions": ["storage"],
     "background": {
       "service_worker": "background.js"
     },
